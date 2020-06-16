@@ -15,12 +15,14 @@ def cleanse_data():
         file.write(data)
         file.truncate()
 
+
 # checks if line is in the following format datetime format [XXXX-XX-XX, XX:XX:XX]
 def starts_with_datetime(line):
     pattern = '^\[([0-9]+)-([0-9]+)-([0-9]+), ([0-9][0-9]):([0-9][0-9]):([0-9][0-9])\]'
     if re.match(pattern, line):
         return True
     return False
+
 
 def get_datapoints(line):
     datetime_and_message = line.split("[", 1)[1].split("]", 1)

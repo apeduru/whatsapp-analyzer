@@ -48,9 +48,9 @@ def parse_data(df):
         # Skip the first three lines since they are header information
         # TODO: Create a function to filter it out before parsing
 
-        # file.readline()
-        # file.readline()
-        # file.readline()
+        file.readline()
+        file.readline()
+        file.readline()
 
         buffer = []
         datapoints = []

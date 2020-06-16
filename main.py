@@ -3,7 +3,7 @@ import re
 import pandas as pd
 import matplotlib.pyplot as plt
 
-FILENAME = "200e.txt"
+FILENAME = "_chat.txt"
 
 # remove the <200e> character that appears when an image/video is used in a message
 def cleanse_data():

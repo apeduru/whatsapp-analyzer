@@ -1,6 +1,7 @@
 import os
 import re
 import pandas as pd
+import matplotlib.pyplot as plt
 
 FILENAME = "200e.txt"
 
@@ -65,4 +66,9 @@ def parse_data(df):
 cleanse_data()
 df = pd.DataFrame(columns=['year', 'month', 'day', 'hour', 'minute', 'second', 'user', 'message'])
 parse_data(df)
-print(df)
+
+author_value_counts = df['user'].value_counts() # Number of messages per author
+top_10_author_value_counts = author_value_counts.head(10) # Number of messages per author for the top 10 most active authors
+top_10_author_value_counts.plot.barh() # Plot a bar chart using pandas built-in plotting
+
+plt.show()

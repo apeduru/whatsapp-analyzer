@@ -31,11 +31,17 @@ def get_datapoints(line):
     year, month, day = date_and_time[0].split("-")
     hour, minute, second = date_and_time[1].strip().split(":")
 
-    user_and_message = datetime_and_message[1].strip().split(":", 1)
-    user = user_and_message[0]
-    message = user_and_message[1].strip()
+    user_and_message = datetime_and_message[1].strip()
 
-    return [year, month, day, hour, minute, second, user], message
+    # TODO: Count when changes are made to the chat name
+    try:
+        user_and_message = user_and_message.split(":", 1)
+        user = user_and_message[0]
+        message = user_and_message[1].strip()
+        return [year, month, day, hour, minute, second, user], message
+    except:
+        return None, None
+
 
 def parse_data(df):
     with open(os.getcwd() + "/" + FILENAME, "r") as file:
@@ -60,6 +66,8 @@ def parse_data(df):
                     df.loc[len(df)] = datapoints
                 buffer.clear()
                 datapoints, message = get_datapoints(line)
+                if datapoints is None:
+                    continue
                 buffer.append(message)
             else:
                 buffer.append(line)

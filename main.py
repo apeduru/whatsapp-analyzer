@@ -43,14 +43,16 @@ def get_datapoints(line):
         return None, None
 
 
+# Skip the first three lines since they are header information
+def skip_header(f):
+    f.readline()
+    f.readline()
+    f.readline()
+
+
 def parse_data(df):
     with open(os.getcwd() + "/" + FILENAME, "r") as file:
-        # Skip the first three lines since they are header information
-        # TODO: Create a function to filter it out before parsing
-
-        file.readline()
-        file.readline()
-        file.readline()
+        skip_header(file)
 
         buffer = []
         datapoints = []

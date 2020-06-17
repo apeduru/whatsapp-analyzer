@@ -60,6 +60,9 @@ def parse_data(df):
         while True:
             line = file.readline() 
             if not line: # Stop reading further if end of file has been reached
+                if len(buffer) > 0:
+                    datapoints.append(' '.join(buffer))
+                    df.loc[len(df)] = datapoints
                 break
             line = line.strip()
             if starts_with_datetime(line):

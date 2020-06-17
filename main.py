@@ -81,12 +81,82 @@ def parse_data(df):
 cleanse_data()
 df = pd.DataFrame(columns=['year', 'month', 'day', 'hour', 'minute', 'second', 'user', 'message'])
 parse_data(df)
-
+df['letter_Count'] = df['message'].apply(lambda s : len(s))
+df['word_Count'] = df['message'].apply(lambda s : len(s.split(' ')))
 df.to_pickle(os.getcwd() + "/dummy.pkl")
-df = pd.read_pickle(os.getcwd() + "/dummy.pkl")
 
-author_value_counts = df['user'].value_counts() # Number of messages per author
-top_10_author_value_counts = author_value_counts.head(10) # Number of messages per author for the top 10 most active authors
-top_10_author_value_counts.plot.barh() # Plot a bar chart using pandas built-in plotting
+# df = pd.read_pickle(os.getcwd() + "/dummy.pkl")
 
-plt.show()
+print(df.head())
+
+# plt.title("Messages sent per hour")
+# counts = df['hour'].value_counts()
+# counts.sort_index(inplace=True)
+# plt.grid(True)
+# counts.plot.bar()
+# plt.xlabel('Hour (PST)')
+# plt.ylabel('# of Messages')
+# plt.xticks(rotation=0)
+
+# plt.title("Messages sent per year")
+# counts = df['year'].value_counts()
+# counts.sort_index(inplace=True)
+# plt.grid(True)
+# counts.plot.bar()
+# plt.xlabel('Year')
+# plt.ylabel('# of Messages')
+# plt.xticks(rotation=0)
+
+# plt.title("Messages sent by user")
+# counts = df['user'].value_counts()
+# counts.sort_index(inplace=True)
+# plt.grid(True)
+# counts.plot.barh()
+# plt.ylabel('User')
+# plt.xlabel('# of Messages')
+# plt.xticks(rotation=0)
+
+# plt.title("Images sent by user")
+# image_df = df[df['message'] == 'image omitted']
+# user_image_counts = image_df['user'].value_counts()
+# user_image_counts.plot.barh()
+# plt.grid(True)
+# plt.ylabel('User')
+# plt.xlabel('# of Messages')
+
+# plt.title("Videos sent by user")
+# video_df = df[df['message'] == 'video omitted']
+# user_video_counts = video_df['user'].value_counts()
+# user_video_counts.plot.barh()
+# plt.title("Videos sent by user")
+# plt.grid(True)
+# plt.ylabel('User')
+# plt.xlabel('# of Messages')
+
+# plt.title("Deleted messages per user")
+# deleted_msg_others_df = df[df['message'] == ('This message was deleted.')]
+# deleted_msg_you_df = df[df['message'] == ('You deleted this message.')]
+# result = pd.concat([deleted_msg_others_df, deleted_msg_you_df])
+# counts = result['user'].value_counts()
+# counts.plot.barh()
+# plt.grid(True)
+# plt.ylabel('User')
+# plt.xlabel('# of Messages')
+
+# plt.title("Who @'s others the most?")
+# result = df[df['message'].str.contains("@[0-9A-Za-z]+", regex=True)]
+# counts = result['user'].value_counts()
+# counts.plot.barh()
+# plt.grid(True)
+# plt.ylabel('User')
+# plt.xlabel('# of Messages')
+
+# plt.title("Who gets @'d the most?")
+# result = df[df['message'].str.contains("@[0-9A-Za-z]+", regex=True)]
+# counts = result['user'].value_counts()
+# counts.plot.barh()
+# plt.grid(True)
+# plt.ylabel('User')
+# plt.xlabel('# of Messages')
+
+# plt.show()

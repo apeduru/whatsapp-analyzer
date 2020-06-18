@@ -59,7 +59,6 @@ def get_datapoints(line):
 def skip_header(f):
     f.readline()
     f.readline()
-    f.readline()
 
 
 def parse_data(df):

@@ -10,7 +10,7 @@ FILENAME = "_chat.txt"
 def cleanse_data():
     with open(os.getcwd() + "/" + FILENAME, "r+") as file:
         data = file.read()
-        data = data.replace(u"\u200e", "")
+        data = data.replace(u"\u200e", "").replace(u"\u200e", "") .replace(u"\u200e", "")
 
         file.seek(0)
         file.write(data)

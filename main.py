@@ -29,17 +29,28 @@ def get_datapoints(line):
     datetime_and_message = line.split("[", 1)[1].split("]", 1)
 
     date_and_time = datetime_and_message[0].split(",", 1)
+    date = date_and_time[0]
     year, month, day = date_and_time[0].split("-")
-    hour, minute, second = date_and_time[1].strip().split(":")
+    time = date_and_time[1].strip()
+    time_and_period = date_and_time[1].strip().split(" ")
+    hour, minute, second = time_and_period[0].split(":")
+    period = time_and_period[1].strip()
+    if (period == "PM"):
+        hour = pm_conversions[hour]
+    else:
+        hour = am_conversions[hour]
 
     user_and_message = datetime_and_message[1].strip()
 
     # TODO: Count when changes are made to the chat name
+    if ("changed the subject" in user_and_message) or ("changed this group's icon" in user_and_message):
+        return None, None
+
     try:
         user_and_message = user_and_message.split(":", 1)
         user = user_and_message[0]
         message = user_and_message[1].strip()
-        return [year, month, day, hour, minute, second, user], message
+        return [date, year, month, day, time, hour, minute, second, period, user], message
     except:
         return None, None
 
@@ -80,7 +91,7 @@ def parse_data(df):
                 
 
 cleanse_data()
-df = pd.DataFrame(columns=['year', 'month', 'day', 'hour', 'minute', 'second', 'user', 'message'])
+df = pd.DataFrame(columns=['date', 'year', 'month', 'day', 'time', 'hour', 'minute', 'second', 'period', 'user', 'message'])
 parse_data(df)
 df['letter_Count'] = df['message'].apply(lambda s : len(s))
 df['word_Count'] = df['message'].apply(lambda s : len(s.split(' ')))

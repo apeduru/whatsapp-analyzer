@@ -78,8 +78,14 @@ def parse_data(df):
             line = line.strip()
             if starts_with_datetime(line):
                 if len(buffer) > 0:
-                    datapoints.append(' '.join(buffer))
-                    df.loc[len(df)] = datapoints
+                    try:
+                        datapoints.append(' '.join(buffer))
+                        df.loc[len(df)] = datapoints
+                    except:
+                        print(line)
+                        print(datapoints)
+                        print(buffer)
+                        raise Exception
                 buffer.clear()
                 datapoints, message = get_datapoints(line)
                 if datapoints is None:

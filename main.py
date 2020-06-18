@@ -19,7 +19,7 @@ def cleanse_data():
 
 # checks if line is in the following format datetime format [XXXX-XX-XX, XX:XX:XX]
 def starts_with_datetime(line):
-    pattern = '^\[([0-9]+)-([0-9]+)-([0-9]+), ([0-9][0-9]):([0-9][0-9]):([0-9][0-9])\]'
+    pattern = '^\[([0-9]+)-([0-9]+)-([0-9]+), ([0-9]+):([0-9]+):([0-9]+) (AM|PM)\]'
     if re.match(pattern, line):
         return True
     return False

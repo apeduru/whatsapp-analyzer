@@ -2,6 +2,7 @@ import os
 import re
 import pandas as pd
 import matplotlib.pyplot as plt
+from dicts import months, am_conversions, pm_conversions
 
 FILENAME = "_chat.txt"
 
